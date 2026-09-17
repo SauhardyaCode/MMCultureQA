@@ -40,3 +40,5 @@ Thumbs.db
 # Submissions & Cache
 submissions/
 *.log
+.cache/
+data/.cache/
