@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import time
 from pathlib import Path
@@ -14,6 +16,15 @@ from pathlib import Path
 import pandas as pd
 from PIL import Image
 import streamlit as st
+import streamlit.runtime
+
+# Automatically handle execution via `python app.py` by launching Streamlit runner
+if not streamlit.runtime.exists():
+    print("[*] Direct Python execution detected.")
+    print("[*] Automatically launching Streamlit web server: 'streamlit run app.py'...\n")
+    env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    cmd = [sys.executable, "-m", "streamlit", "run", str(Path(__file__).resolve())] + sys.argv[1:]
+    sys.exit(subprocess.call(cmd, env=env))
 
 from mmcultureqa.asr import SpeechTranscriber
 from mmcultureqa.config import Config, SUPPORTED_LANGUAGES
